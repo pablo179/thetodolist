@@ -1,27 +1,22 @@
 {
-  "name": "client",
-  "version": "0.1.0",
-  "private": true,
+  "name": "thetodolist",
+  "version": "1.0.0",
+  "description": "this is the clasic TODO list but adding more and more functionality every time I'm bored",
+  "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev": "concurrently -n client,server -c green,cyan \"npm run dev:client\" \"npm run dev:server\""
   },
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "private": true,
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.1.4"
-  },
-  "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "autoprefixer": "^10.0.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
-    "eslint": "^8",
-    "eslint-config-next": "14.1.4"
+    "concurrently": "^6.2.0"
   }
 }
