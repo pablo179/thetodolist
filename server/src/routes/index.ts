@@ -1,17 +1,20 @@
 import express from 'express';
-import authRoutes from './auth.routes.js';
-import config from '../config.js';
+import authRoutes from './auth.routes';
+import config from '../config';
 
 const router = express.Router();
-
-const appRoutes = [
+type Route = {
+    path: string;
+    route: any;
+}
+const appRoutes: Route[] = [
     {
         path: '/auth',
         route: authRoutes
     }
 ]
 
-const devRoutes = [
+const devRoutes: Route[] = [
 ]
 
 appRoutes.forEach(route => {

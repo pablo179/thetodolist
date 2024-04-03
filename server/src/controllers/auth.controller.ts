@@ -1,5 +1,6 @@
-import userSchema from "../models/user.model.js";
-export const register = async (req, res) => {
+import { Request, Response } from 'express';
+import userSchema from "../models/user.model";
+export const register = async (req: Request, res: Response) => {
     const { email, password, username } = req.body;
     try {
         const newUser = new userSchema({
@@ -10,6 +11,8 @@ export const register = async (req, res) => {
         const userCreated = await newUser.save();
         res.json(userCreated);
     } catch (error) {
-        res.status(409).send(error.message);
+        if (error instanceof Error) {
+             res.status(409).send(error.message);
+         }
     }
 }

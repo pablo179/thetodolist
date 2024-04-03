@@ -1,6 +1,6 @@
-import app from './app.js'
-import config from './config.js'
-import { connectDB } from './db.js'
+import app from './app'
+import config from './config'
+import { connectDB } from './db'
 
 const server = app.listen(config.port, () => {
     console.info(`Server is running on port ${config.port}`)
@@ -19,7 +19,7 @@ const exitHandler = () => {
     }
 }
 
-const unexpectedErrorHandler = (error) => {
+const unexpectedErrorHandler = (error: Error) => {
     console.error(error)
     exitHandler()
 }
