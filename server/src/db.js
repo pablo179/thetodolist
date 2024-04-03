@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
+import { dbURL } from "./config";
 
 export const connectDB = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://pablo179:espejismos@pablostest.my117zk.mongodb.net/todolist",
-    );
+    await mongoose.connect(dbURL);
     console.info("Connected to the database");
   } catch (error) {
     console.error("Error connecting to the database: ", error);
