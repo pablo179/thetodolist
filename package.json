@@ -6,7 +6,9 @@
   "scripts": {
     "dev:client": "npm run dev --prefix client",
     "dev:server": "npm run dev --prefix server",
-    "dev": "concurrently -n client,server -c green,cyan \"npm run dev:client\" \"npm run dev:server\""
+    "dev": "concurrently -n client,server -c green,cyan \"npm run dev:client\" \"npm run dev:server\"",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix"
   },
   "workspaces": [
     "client",
@@ -16,7 +18,11 @@
   "author": "",
   "license": "ISC",
   "private": true,
-  "dependencies": {
-    "concurrently": "^6.2.0"
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
+    "eslint": "^8.57.0",
+    "prettier": "3.2.5"
   }
 }

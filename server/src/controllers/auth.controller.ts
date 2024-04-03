@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import userSchema from "../models/user.model";
+import userSchema from '../models/user.model';
 export const register = async (req: Request, res: Response) => {
     const { email, password, username } = req.body;
     try {
@@ -12,7 +12,7 @@ export const register = async (req: Request, res: Response) => {
         res.json(userCreated);
     } catch (error) {
         if (error instanceof Error) {
-             res.status(409).send(error.message);
-         }
+            res.status(409).send(error.message);
+        }
     }
-}
+};
