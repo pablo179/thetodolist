@@ -3,10 +3,9 @@ module.exports = {
     env: {
         node: true,
         commonjs: true,
-        node: true,
+        es6: true,
     },
-    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',],
+    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 'latest',
@@ -23,4 +22,5 @@ module.exports = {
             },
         ],
     },
+    ignorePatterns: ['**/dist/*', '**/node_modules/*'],
 };
