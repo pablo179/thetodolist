@@ -1,55 +1,32 @@
-"use client"
-
-import Item from "../components/ItemComponent";
-import { useItems } from "../hooks/useItems"
-export interface Item {
-  id: string;
-  text: string;
-}
+import Image from "next/image";
+import Link from "next/link";
+import LoginForm from "../components/LoginForm";
 
 export default function Home() {
-  const { items, addItem, removeItem } = useItems()
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const input = form.elements.namedItem("item");
-    const isValid = input instanceof HTMLInputElement && input.value;
-    if (isValid) {
-      addItem(input.value);
-      input.value = "";
-    }
-  };
-  const createHandleRemoveItem = (id: string) => () => {
-    removeItem(id)
-  }
-
   return (
-    <div>
-      <h1>Mi prueba</h1>
-      <form
-        className="flex flex-col items-center m-auto w-1/2 my-3 gap-2"
-        onSubmit={handleSubmit}
-        aria-label="agregar elementos a la lista"
-      >
-        <label className="w-full text-left text-white text-2xl" htmlFor="item">
-          TODO List
-        </label>
-        <input
-          className="w-full p-1 border border-zinc-400 rounded-sm text-black"
-          name="item"
-          required
-          type="text"
-          placeholder="Escribe un item"
+    <div className="w-screen h-screen flex">
+      <div className="h-full flex flex-col justify-center items-center bg-slate-50 text-black min-w-80 w-1/2">
+        <h1 className="text-xl font-semibold">Welcome to TheTodoList!</h1>
+        <LoginForm />
+        <p className="text-sm mt-2">
+          Don&apos;t have an account?{" "}
+          <Link href="/signup" className="text-blue-400">
+            Sign up
+          </Link>
+        </p>
+      </div>
+      <div className="w-4/5 h-full relative overflow-hidden">
+        <Image
+          src="/main.jpg"
+          alt="main"
+          className="w-full h-full fit"
+          placeholder="blur"
+          blurDataURL={"/main.jpg"}
+          width={1024}
+          height={768}
+          style={{ objectFit: "cover" }}
         />
-        <button className="w-1/2 mt-2 bg-zinc-400 rounded-sm" type="submit">
-          Añadir
-        </button>
-      </form>
-      <ul className="flex flex-col items-center m-auto w-1/2 min-h-80 gap-2 text-white">
-        {items.map((item) => (
-          <Item key={item.id} handleClick={createHandleRemoveItem(item.id)} {...item} />
-        ))}
-      </ul>
+      </div>
     </div>
   );
 }

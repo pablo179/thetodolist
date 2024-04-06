@@ -21,10 +21,10 @@ const tryCatchWrapper = (action: (_req: Request, _res: Response) => Promise<void
             await action(req, res);
         } catch (error) {
             if (error instanceof ApiError) {
-                return res.status(error.statusCode).json({ message: error.message });
+                return res.status(error.statusCode).json({ error: error.message });
             } else {
                 const convertedError = errorConverter(error as CustomError);
-                return res.status(convertedError.statusCode).json({ message: convertedError.message });
+                return res.status(convertedError.statusCode).json({ error: convertedError.message });
             }
         }
     };

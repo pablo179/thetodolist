@@ -13,5 +13,7 @@ const getEnvVar = (name: string, required = true): string | undefined => {
 export default {
     port: getEnvVar('PORT'),
     dbURL: getEnvVar('DB_URL'),
-    env: 'dev',
+    env: getEnvVar('ENV'),
+    jwtSecret: getEnvVar('JWT_SECRET'),
+    clientOrigin: getEnvVar('CLIENT_ORIGIN'),
 };
