@@ -62,7 +62,6 @@ export default function LoginForm() {
         />
       </label>
       {error && <p className="text-red-500 text-xs text-left w-full">{error}</p>}
-      <div>
         <LoadingSwitch>
           <input
             type="submit"
@@ -70,7 +69,6 @@ export default function LoginForm() {
             className="bg-slate-600 p-2 rounded-md cursor-pointer w-full text-slate-200"
           />
         </LoadingSwitch>
-      </div>
     </form>
   );
 }

@@ -15,6 +15,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/todo/page.js"
+    ],
+    "/todo/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/todo/layout.js"
     ]
   }
 }

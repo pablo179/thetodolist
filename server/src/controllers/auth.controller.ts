@@ -14,7 +14,7 @@ const encryptPassword = async (password: string) => {
     return await bcrypt.hash(password, salt);
 };
 
-const generateToken = (id: string, email: string) => {
+const generateToken = (id: string, email: string, empty = false) => {
     const token = jwt.sign(
         {
             email,
@@ -26,12 +26,12 @@ const generateToken = (id: string, email: string) => {
     if (!token) {
         throw new ApiError(status.INTERNAL_SERVER_ERROR, 'Token could not be generated');
     }
-    const serializedToken = serialize('token', token, {
+    const serializedToken = serialize('token', empty ? '' : token, {
         httpOnly: true,
         secure: config.env === 'prod',
         sameSite: 'strict',
         path: '/',
-        maxAge: 60 * 60,
+        maxAge: empty ? 0 : 60 * 60,
     });
     return serializedToken;
 };
@@ -68,4 +68,11 @@ export const login = async (req: Request, res: Response) => {
     const token = generateToken(user._id, user.email);
     res.setHeader('Set-Cookie', token);
     res.json('Logged in');
+};
+
+export const logout = async (_req: Request, res: Response) => {
+    const token = generateToken('', '', true);
+    res.setHeader('Set-Cookie', token);
+    // TODO: Invalidate all sessions for the user in the database
+    res.json('Logged out');
 };

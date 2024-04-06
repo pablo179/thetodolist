@@ -1,5 +1,11 @@
 import { ReactNode, useState } from "react";
 import SpinnerComponent from "@/components/SpinnerComponent";
+
+interface LoadingSwitchProps {
+  children: ReactNode;
+  size?: string;
+}
+
 export default function useLoading() {
   const [loading, setLoading] = useState(false);
 
@@ -14,8 +20,8 @@ export default function useLoading() {
 
   const LoadingShow = () => loading && <SpinnerComponent />;
 
-  const LoadingSwitch: React.FC<{ children: ReactNode }> = ({ children }) => {
-    return loading ? <SpinnerComponent /> : <>{children}</>;
+  const LoadingSwitch: React.FC<LoadingSwitchProps> = ({ children, size }) => {
+    return loading ? <SpinnerComponent size={size} /> : children;
   };
 
   return { loading, load, LoadingShow, LoadingSwitch };
