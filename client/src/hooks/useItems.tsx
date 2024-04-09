@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Item } from "../app/page";
-
+interface Item {
+  id: string;
+  text: string;
+}
 export const useItems = () => {
   const [items, setItems] = useState<Item[]>([]);
 

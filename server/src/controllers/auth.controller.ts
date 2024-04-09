@@ -40,7 +40,7 @@ export const register = async (req: Request, res: Response) => {
     const { email, password, username } = req.body;
     const userExists = await findUser(email);
     if (userExists) {
-        throw new ApiError(status.BAD_REQUEST, 'User already exists');
+        throw new ApiError(status.BAD_REQUEST, 'Signup failed: email already exists');
     }
     const hashedPassword = await encryptPassword(password);
     const newUser = new userSchema({
@@ -57,7 +57,7 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const user = await findUser(email);
-    const loginError = 'Invalid email or password';
+    const loginError = 'Login failed: email or password is incorrect';
     if (!user) {
         throw new ApiError(status.BAD_REQUEST, loginError);
     }
@@ -73,6 +73,5 @@ export const login = async (req: Request, res: Response) => {
 export const logout = async (_req: Request, res: Response) => {
     const token = generateToken('', '', true);
     res.setHeader('Set-Cookie', token);
-    // TODO: Invalidate all sessions for the user in the database
     res.json('Logged out');
 };

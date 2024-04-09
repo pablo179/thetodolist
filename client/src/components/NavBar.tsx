@@ -36,7 +36,7 @@ const NavBar = () => {
   }, [isDropdownOpen]);
 
   return (
-    <nav className="w-64 max-w-64 h-full bg-slate-300 p-3 px-5 flex flex-col gap-3">
+    <nav className="w-64 max-w-64 h-full bg-slate-300 p-3 px-5 flex flex-col gap-3 sticky bottom-0">
       <div className="rounded-md bg-slate-200">
         <ul>
           <ListItem>
