@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="w-screen h-screen flex">
       <div className="h-full flex flex-col justify-center items-center bg-slate-50 text-black min-w-80 w-1/2">
-        <h1 className="text-xl font-semibold">Welcome back!</h1>
+        <h1 className="text-xl font-semibold">Welcome back bro!</h1>
         <LoginForm />
         <p className="text-sm mt-2">
           Don&apos;t have an account?{" "}
