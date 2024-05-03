@@ -51,7 +51,7 @@ export const register = async (req: Request, res: Response) => {
     const userCreated = await newUser.save();
     const token = generateToken(userCreated._id, userCreated.email);
     res.setHeader('Set-Cookie', token);
-    res.json('User created');
+    res.json({ token });
 };
 
 export const login = async (req: Request, res: Response) => {
@@ -67,7 +67,7 @@ export const login = async (req: Request, res: Response) => {
     }
     const token = generateToken(user._id, user.email);
     res.setHeader('Set-Cookie', token);
-    res.json('Logged in');
+    res.json({ token });
 };
 
 export const logout = async (_req: Request, res: Response) => {

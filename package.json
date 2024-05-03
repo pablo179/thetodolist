@@ -38,5 +38,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/pablo179/thetodolist"
+  },
+  "dependencies": {
+    "axios": "^1.6.8"
   }
 }

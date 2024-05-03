@@ -1,6 +1,7 @@
 import express from 'express';
 import { Router } from 'express';
 import authRoutes from './auth.routes';
+import todoRoutes from './todo.routes';
 import config from '../config';
 
 const router = express.Router();
@@ -12,6 +13,10 @@ const appRoutes: Route[] = [
     {
         path: '/auth',
         route: authRoutes,
+    },
+    {
+        path: '/todo',
+        route: todoRoutes,
     },
 ];
 

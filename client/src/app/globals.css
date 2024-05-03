@@ -69,3 +69,17 @@ form label input {
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+.submitButton {
+  @apply bg-slate-600 p-2 rounded-md cursor-pointer w-full text-slate-200 transition-all relative overflow-hidden
+}
+
+.submitButton::before {
+  content: "";
+  transform: rotate(35deg);
+  @apply absolute w-20 h-28 bg-slate-400 opacity-20 -top-full -left-2/3 transition-all duration-500
+}
+
+.submitButton:hover::before {
+  left: 120%
+}

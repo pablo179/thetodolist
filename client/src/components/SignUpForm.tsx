@@ -1,15 +1,15 @@
 "use client";
 import { useState, FormEvent } from "react";
-import { request } from "../utils/request";
-import useLoading from "../hooks/useLoading";
-import { useRouter } from "next/navigation";
 import { validateEmail, validatePassword } from "@/utils/validator";
 
 export default function SignUpForm() {
-  const { LoadingSwitch, load } = useLoading();
   const [error, setError] = useState("");
-  const [form, setForm] = useState({ email: "", password: "", username: "", confirmPassword: ""});
-  const router = useRouter();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    username: "",
+    confirmPassword: "",
+  });
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setError("");
@@ -30,28 +30,17 @@ export default function SignUpForm() {
       return false;
     }
     if (!validatePassword(password)) {
-      setError("Password must contain at least 6 characters, one uppercase letter and one number");
+      setError(
+        "Password must contain at least 6 characters, one uppercase letter and one number"
+      );
       return false;
     }
     return true;
-  }
+  };
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { email, password, username } = form;
     if (!isFormValid()) return;
-    const signup = await load(
-      request("/auth/signup", "POST", {
-        email: email,
-        password: password,
-        username: username,
-      })
-    );
-    if (signup.error) {
-      setError(signup.error);
-      return;
-    } else {
-      router.push("/todo");
-    }
   };
   return (
     <form
@@ -69,7 +58,7 @@ export default function SignUpForm() {
           onChange={handleChange}
         />
       </label>
-      <label htmlFor="username" >
+      <label htmlFor="username">
         Username
         <input
           type="text"
@@ -105,13 +94,13 @@ export default function SignUpForm() {
       {error && (
         <p className="text-red-500 text-xs text-left w-full">{error}</p>
       )}
-      <LoadingSwitch>
-        <input
-          type="submit"
-          value="Sign Up"
-          className="w-full h-8 mt-2 py-1 px-2 rounded-lg bg-slate-500 text-white cursor-pointer"
-        />
-      </LoadingSwitch>
+      <button
+        type="submit"
+        value="Sign Up"
+        className="submitButton"
+      >
+        Sign Up
+      </button>
     </form>
   );
 }

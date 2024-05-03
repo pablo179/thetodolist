@@ -1,49 +1,43 @@
 "use client";
 import { useState, FormEvent } from "react";
-import { request } from "../utils/request";
-import useLoading from "../hooks/useLoading";
-import { useRouter } from 'next/navigation'
-import { validateEmail, validatePassword } from "@/utils/validator";
+import LoadingComponent from "./LoadingComponent";
+import { validateEmail } from "@/utils/validator";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { login, setError, selectIsFetching } from "@/lib/features/auth/authSlice";
 
 export default function LoginForm() {
-  const { LoadingSwitch, load } = useLoading();
-  const [error, setError] = useState("");
   const [form, setForm] = useState({ email: "", password: "" });
-  const router = useRouter()
+  const dispatch = useAppDispatch();
+  const error = useAppSelector((state) => state.auth.error);
+  const isLoading = useAppSelector(selectIsFetching);
+  
+  const handleError = (error: string) => dispatch(setError(error));
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
-    setError("");
-    setForm(prevState => ({ ...prevState, [name]: value }));
-  }
+    handleError("");
+    setForm((prevState) => ({ ...prevState, [name]: value }));
+  };
 
   const isFormValid = (): boolean => {
     const { email, password } = form;
     if (!email || !password) {
-      setError("Please fill all fields");
+      handleError("Please fill all fields");
       return false;
     }
     if (!validateEmail(email)) {
-      setError("Invalid email");
+      handleError("Invalid email");
       return false;
     }
     return true;
-  }
+  };
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { email, password } = form;
     if (!isFormValid()) return;
-    const loginin = await load(request("/auth/login", "POST", {
-      email: email,
-      password: password,
-    }));
-    if (loginin.error) {
-      setError(loginin.error);
-      return;
-    } else {
-      router.push('/todo')
-    }
+    dispatch(login({ email, password }));
   };
+
   return (
     <form
       onSubmit={handleLogin}
@@ -71,14 +65,12 @@ export default function LoginForm() {
           onChange={handleChange}
         />
       </label>
-      {error && <p className="text-red-500 text-xs text-left w-full">{error}</p>}
-        <LoadingSwitch>
-          <input
-            type="submit"
-            value="Login"
-            className="bg-slate-600 p-2 rounded-md cursor-pointer w-full text-slate-200"
-          />
-        </LoadingSwitch>
+      {error && (
+        <p className="text-red-500 text-xs text-left w-full">{error}</p>
+      )}
+      <LoadingComponent isLoading={isLoading} >
+        <button className="submitButton">Login</button>
+      </LoadingComponent>
     </form>
   );
 }

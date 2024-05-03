@@ -2,15 +2,15 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
  
 // This function can be marked `async` if using `await` inside
-export function middleware(req: NextRequest, res: NextResponse) {
-  const isJwt = req.cookies.get('token') === undefined;
+export function middleware(req: NextRequest) {
+  const isJwtUndefined = req.cookies.get('token') === undefined;
   const isTodoPath = req.nextUrl.pathname.startsWith('/todo');
 
-  if(isTodoPath && isJwt) {
+  if(isTodoPath && isJwtUndefined) {
     return NextResponse.redirect(new URL('/', req.url))
   }
 
-  if (!isTodoPath && !isJwt) {
+  if (!isTodoPath && !isJwtUndefined) {
     return NextResponse.redirect(new URL('/todo', req.url))
   }
 
